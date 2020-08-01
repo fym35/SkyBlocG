@@ -8,10 +8,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.world.SkyblockWorldEvents;
+import vazkii.botania.common.world.WorldTypeSkyblock;
 
 public class SkyBlockWorldEvents {
 
@@ -91,18 +92,34 @@ public class SkyBlockWorldEvents {
     }
 
     public static void createSkyblock(World world, BlockPos pos) {
-        if(Botania.gardenOfGlassLoaded) {
+        if(ModList.get().isLoaded("gardenofglass") && world.getWorldType().equals(new WorldTypeSkyblock())) {
             SkyblockWorldEvents.createSkyblock(world, pos);
         } else {
             for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
+                for (int j = 0; j < 4; j++) {
                     for (int k = 0; k < 3; k++) {
-                        world.setBlockState(pos.add(-1 + i, -1 - j, -1 + k), j == 0 ? Blocks.GRASS_BLOCK.getDefaultState() : Blocks.DIRT.getDefaultState());
+                        world.setBlockState(pos.add(-1 + i, -1 - j, -1 + k), j == 0 ? Blocks.GRASS_BLOCK.getDefaultState() : j == 3 ? Blocks.BEDROCK.getDefaultState() : Blocks.DIRT.getDefaultState());
                     }
                 }
             }
+            for(int i = 0; i < 4; i++) {
+                world.setBlockState(pos.add(0, i, 0), Blocks.OAK_LOG.getDefaultState());
+            }
+            for (int i = 0; i < 5; i++) {
+                for(int j = 0; j < 2; j++) {
+                    for(int k = 0; k < 5; k++) {
+                        world.setBlockState(pos.add(-2 + i, 3 + j, -2 + k), Blocks.OAK_LEAVES.getDefaultState());
+                    }
+                }
+            }
+            for (int i = 0; i < 3; i++) {
+                for(int j = 2; j < 4; j++) {
+                    for(int k = 0; k < 3; k++) {
+                        world.setBlockState(pos.add(-1 + i, 3 + j, -1 + k), Blocks.OAK_LEAVES.getDefaultState());
+                    }
+                }
+            }
+            world.setBlockState(pos.up(3), Blocks.OAK_LOG.getDefaultState());
         }
-
     }
-
 }

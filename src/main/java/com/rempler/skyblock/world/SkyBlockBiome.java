@@ -1,20 +1,12 @@
 package com.rempler.skyblock.world;
 
 import com.rempler.skyblock.RegistryEvents;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 
 public class SkyBlockBiome extends Biome {
-    private static final BlockState WATER = Blocks.WATER.getDefaultState();
-    private static final BlockState GRAVEL = Blocks.GRAVEL.getDefaultState();
-    private static final BlockState GRANITE = Blocks.GRANITE.getDefaultState();
-    private static final BlockState DIORITE = Blocks.DIORITE.getDefaultState();
-    private static final BlockState ANDESITE = Blocks.ANDESITE.getDefaultState();
-    private static final BlockState CLAY = Blocks.CLAY.getDefaultState();
 
     public SkyBlockBiome() {
         super(new Biome.Builder()

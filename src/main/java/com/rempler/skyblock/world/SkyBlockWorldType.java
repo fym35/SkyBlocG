@@ -2,13 +2,12 @@ package com.rempler.skyblock.world;
 
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
-import net.minecraft.world.biome.provider.BiomeProviderType;
-import net.minecraft.world.biome.provider.OverworldBiomeProviderSettings;
-import net.minecraft.world.biome.provider.SingleBiomeProvider;
-import net.minecraft.world.biome.provider.SingleBiomeProviderSettings;
+import net.minecraft.world.biome.NetherBiome;
+import net.minecraft.world.biome.provider.*;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.OverworldChunkGenerator;
+import net.minecraft.world.gen.EndGenerationSettings;
+import net.minecraft.world.gen.NetherGenSettings;
 import net.minecraft.world.gen.OverworldGenSettings;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -42,7 +41,16 @@ public class SkyBlockWorldType extends WorldType {
             OverworldGenSettings genSettings = SkyBlockChunkGenerator.TYPE.createSettings();
             OverworldBiomeProviderSettings biomeSettings = BiomeProviderType.VANILLA_LAYERED.createSettings(world.getWorldInfo()).setGeneratorSettings(genSettings);
             return SkyBlockChunkGenerator.TYPE.create(world, BiomeProviderType.VANILLA_LAYERED.create(biomeSettings), genSettings);
+        } else if (world.dimension.getType() == DimensionType.THE_END) {
+            EndGenerationSettings genSettings = EndVoidChunkGenerator.TYPE.createSettings();
+            EndBiomeProviderSettings biomeSettings = BiomeProviderType.THE_END.createSettings(world.getWorldInfo());
+            return EndVoidChunkGenerator.TYPE.create(world, new EndBiomeProvider(biomeSettings), genSettings);
         }
+        //TODO make NetherVoid
+        /*else if (world.dimension.getType() == DimensionType.THE_NETHER) {
+            NetherGenSettings genSettings = NetherVoidChunkGenerator.TYPE.createSettings();
+            return NetherVoidChunkGenerator.TYPE.create(world, new NetherBiome(), genSettings);
+        }*/
         return super.createChunkGenerator(world);
     }
 

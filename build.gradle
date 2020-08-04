@@ -95,8 +95,8 @@ repositories {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.15.2-31.2.33'
-    compileOnly fg.deobf("vazkii.botania:Botania:r1.15-388.469:api")
-    compileOnly fg.deobf("vazkii.botania:Botania:r1.15-388.469")
+    compileOnly fg.deobf("vazkii.botania:Botania:r1.15-389.477:api")
+    compileOnly fg.deobf("vazkii.botania:Botania:r1.15-389.477")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

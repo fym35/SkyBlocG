@@ -1,5 +1,6 @@
 package com.rempler.skyblock.world;
 
+import com.rempler.skyblock.config.ConfigOptions;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -42,7 +43,7 @@ public class SkyBlockWorldEvents {
                 if (SkyBlockWorldType.isWorldSkyblock(world)) {
                     BlockPos coords = world.getSpawnPoint();
                     if (coords.getY() <= 0) {
-                        coords = new BlockPos(coords.getX(), 82, coords.getZ());
+                        coords = new BlockPos(coords.getX(), ConfigOptions.Common.islandYLevel.get(), coords.getZ());
                         world.setSpawnPoint(coords);
                         SPAWN_X = coords.getX();
                         SPAWN_Y = coords.getY();

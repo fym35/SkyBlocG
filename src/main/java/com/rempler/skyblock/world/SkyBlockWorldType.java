@@ -1,13 +1,12 @@
 package com.rempler.skyblock.world;
 
+import com.rempler.skyblock.config.ConfigOptions;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
-import net.minecraft.world.biome.NetherBiome;
 import net.minecraft.world.biome.provider.*;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.EndGenerationSettings;
-import net.minecraft.world.gen.NetherGenSettings;
 import net.minecraft.world.gen.OverworldGenSettings;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -31,7 +30,12 @@ public class SkyBlockWorldType extends WorldType {
 
     @Override
     public float getCloudHeight() {
-        return 260f;
+        try {
+            float cloudHeight = ConfigOptions.Common.cloudLevel.get();
+            return cloudHeight;
+        } catch (NullPointerException e){
+            return 188f;
+        }
     }
 
     @Nonnull

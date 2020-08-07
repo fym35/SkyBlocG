@@ -1,6 +1,8 @@
 package com.rempler.skyblock.world;
 
 import com.rempler.skyblock.config.ConfigOptions;
+import com.rempler.skyblock.world.end.EndVoidChunkGenerator;
+import com.rempler.skyblock.world.overworld.SkyBlockChunkGenerator;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.provider.*;
@@ -31,8 +33,7 @@ public class SkyBlockWorldType extends WorldType {
     @Override
     public float getCloudHeight() {
         try {
-            float cloudHeight = ConfigOptions.Common.cloudLevel.get();
-            return cloudHeight;
+            return ConfigOptions.Common.cloudLevel.get().floatValue();
         } catch (NullPointerException e){
             return 188f;
         }
@@ -45,7 +46,9 @@ public class SkyBlockWorldType extends WorldType {
             OverworldGenSettings genSettings = SkyBlockChunkGenerator.TYPE.createSettings();
             OverworldBiomeProviderSettings biomeSettings = BiomeProviderType.VANILLA_LAYERED.createSettings(world.getWorldInfo()).setGeneratorSettings(genSettings);
             return SkyBlockChunkGenerator.TYPE.create(world, BiomeProviderType.VANILLA_LAYERED.create(biomeSettings), genSettings);
-        } else if (world.dimension.getType() == DimensionType.THE_END) {
+        }
+        //TODO make End Voidable
+        else if (world.dimension.getType() == DimensionType.THE_END && ConfigOptions.Common.endVoid.get()) {
             EndGenerationSettings genSettings = EndVoidChunkGenerator.TYPE.createSettings();
             EndBiomeProviderSettings biomeSettings = BiomeProviderType.THE_END.createSettings(world.getWorldInfo());
             return EndVoidChunkGenerator.TYPE.create(world, new EndBiomeProvider(biomeSettings), genSettings);

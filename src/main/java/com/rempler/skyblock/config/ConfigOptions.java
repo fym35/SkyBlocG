@@ -4,7 +4,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.Arrays;
+//import java.util.Arrays;
 
 @Mod.EventBusSubscriber
 public final class ConfigOptions {
@@ -99,11 +99,11 @@ public final class ConfigOptions {
             NONE, IMPULSE, REPEATING, CHAIN
         }
 
-        public static String[] emptyFilledArray(int length) {
+        /*public static String[] emptyFilledArray(int length) {
             String[] array = new String[length];
             Arrays.fill(array, "");
             return array;
-        }
+        }*/
 
         public Common(ForgeConfigSpec.Builder server) {
             server.comment("Config Settings for the world generation");

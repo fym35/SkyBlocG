@@ -13,7 +13,7 @@ public class EndVoidBiome extends Biome {
         super(new Biome.Builder()
                 .surfaceBuilder(SurfaceBuilder.NOPE, SurfaceBuilder.AIR_CONFIG)
                 .precipitation(RainType.NONE)
-                .category(Category.NETHER)
+                .category(Category.THEEND)
                 .downfall(0.0f)
                 .depth(0.5f)
                 .scale(0.5f)

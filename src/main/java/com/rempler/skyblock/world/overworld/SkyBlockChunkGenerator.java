@@ -1,10 +1,12 @@
 package com.rempler.skyblock.world.overworld;
 
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeManager;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.*;
+import net.minecraft.world.server.ServerChunkProvider;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -14,6 +16,11 @@ public class SkyBlockChunkGenerator extends OverworldChunkGenerator {
 
     public SkyBlockChunkGenerator(IWorld worldIn, BiomeProvider provider, OverworldGenSettings settingsIn) {
         super(worldIn, provider, settingsIn);
+    }
+
+    public static boolean isWorldSkyblock(World world) {
+        return world.getChunkProvider() instanceof ServerChunkProvider
+                && ((ServerChunkProvider) world.getChunkProvider()).getChunkGenerator() instanceof SkyBlockChunkGenerator;
     }
 
     @Override

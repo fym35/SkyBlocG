@@ -1,5 +1,6 @@
 package com.rempler.skyblock;
 
+import com.rempler.skyblock.helpers.PacketHandler;
 import com.rempler.skyblock.commands.RegisterCommands;
 import com.rempler.skyblock.config.ConfigOptions;
 import com.rempler.skyblock.world.SkyBlockWorldEvents;
@@ -34,12 +35,13 @@ public class SkyBlock
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigOptions.COMMON_SPEC);
 
         MinecraftForge.EVENT_BUS.addListener(this::serverStarting);
+        MinecraftForge.EVENT_BUS.addListener(SkyBlockWorldEvents::syncStatus);
         MinecraftForge.EVENT_BUS.addListener(SkyBlockWorldEvents::onPlayerJoin);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-
+        PacketHandler.init();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

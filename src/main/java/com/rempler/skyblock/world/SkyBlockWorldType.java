@@ -2,6 +2,7 @@ package com.rempler.skyblock.world;
 
 import com.rempler.skyblock.config.ConfigOptions;
 import com.rempler.skyblock.world.end.EndVoidChunkGenerator;
+import com.rempler.skyblock.world.nether.NetherVoidChunkGenerator;
 import com.rempler.skyblock.world.overworld.SkyBlockChunkGenerator;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
@@ -9,6 +10,7 @@ import net.minecraft.world.biome.provider.*;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.EndGenerationSettings;
+import net.minecraft.world.gen.NetherGenSettings;
 import net.minecraft.world.gen.OverworldGenSettings;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -54,10 +56,12 @@ public class SkyBlockWorldType extends WorldType {
             return EndVoidChunkGenerator.TYPE.create(world, new EndBiomeProvider(biomeSettings), genSettings);
         }
         //TODO make NetherVoid
-        /*else if (world.dimension.getType() == DimensionType.THE_NETHER) {
+        else if (world.dimension.getType() == DimensionType.THE_NETHER) {
             NetherGenSettings genSettings = NetherVoidChunkGenerator.TYPE.createSettings();
-            return NetherVoidChunkGenerator.TYPE.create(world, new NetherBiome(), genSettings);
-        }*/
+            SingleBiomeProviderSettings single = new SingleBiomeProviderSettings(world.getWorldInfo());
+            single.setBiome(SkyBlockBiomes.nether);
+            return NetherVoidChunkGenerator.TYPE.create(world, new SingleBiomeProvider(single), genSettings);
+        }
         return super.createChunkGenerator(world);
     }
 

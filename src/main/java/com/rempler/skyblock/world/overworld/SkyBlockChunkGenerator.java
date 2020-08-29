@@ -12,7 +12,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 public class SkyBlockChunkGenerator extends OverworldChunkGenerator {
-    public static final ChunkGeneratorType<OverworldGenSettings, SkyBlockChunkGenerator> TYPE = new ChunkGeneratorType<>(SkyBlockChunkGenerator::new, false, OverworldGenSettings::new);
+    public static final ChunkGeneratorType<OverworldGenSettings, SkyBlockChunkGenerator> TYPE = new ChunkGeneratorType<>(SkyBlockChunkGenerator::new, true, OverworldGenSettings::new);
 
     public SkyBlockChunkGenerator(IWorld worldIn, BiomeProvider provider, OverworldGenSettings settingsIn) {
         super(worldIn, provider, settingsIn);

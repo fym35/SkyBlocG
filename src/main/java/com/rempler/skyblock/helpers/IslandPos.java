@@ -1,15 +1,8 @@
-package com.rempler.skyblock.api;
+package com.rempler.skyblock.helpers;
 
 import com.rempler.skyblock.config.ConfigOptions;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.util.Constants;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 public class IslandPos {
     private final int posX;

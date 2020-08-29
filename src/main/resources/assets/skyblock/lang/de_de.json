@@ -1,4 +1,17 @@
 {
   "generator.the-voids-type": "Skyblock",
-  "biome.thevoids.the-voids-biome": "Die einsame Insel"
+  "generator.skyblock-type.info": "Einfach nur SkyBlock",
+  "skyblock.command.island.success": "%s, deine Insel wurde erfolgreich erstellt",
+  "skyblock.command.island.teleported": "Du wurdest teleportiert, da du schon eine Insel hast",
+  "skyblock.command.regenisland.success": "&s, deine Insel wurde erfolgreich regeneriert",
+  "skyblock.command.teleport.success": "%s wurde auf die Insel von %s teleportiert",
+  "skyblock.command.spawn.success": "Du wurdest zum Spawn teleportiert",
+  "skyblock.command.world": "Dieser Command kann nicht in einer Nicht-Skyblock Dimension ausgeführt werden!",
+  "skyblock.command.noisland": "Dieser Spieler besitzt keine Insel",
+  "skyblock.command.help": "-------- SkyBlock Hilfe --------",
+  "skyblock.command.help.0": "/island help - zeigt die Hilfe an",
+  "skyblock.command.help.1": "/island island <player> - erstellt eine neue Insel oder teleportiert ihn, falls eine Insel existiert",
+  "skyblock.command.help.2": "/island spawn - teleportiert den Spieler zum Spawn",
+  "skyblock.command.help.3": "/island visit <player> - teleportiert den Spieler auf die Insel des spezifizierten Spielers",
+  "skyblock.command.help.4": "/island regen-island <player> - regeneriert die Insel von dem spezifizierten Spieler"
 }

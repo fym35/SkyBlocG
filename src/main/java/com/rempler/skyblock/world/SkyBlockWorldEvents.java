@@ -1,16 +1,22 @@
 package com.rempler.skyblock.world;
 
-import com.rempler.skyblock.api.IslandPos;
+import com.rempler.skyblock.SkyBlock;
+import com.rempler.skyblock.helpers.IslandPos;
+import com.rempler.skyblock.helpers.PacketHandler;
+import com.rempler.skyblock.helpers.PacketWorld;
 import com.rempler.skyblock.world.overworld.SkyBlockChunkGenerator;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.ModList;
-
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 
@@ -18,16 +24,25 @@ public class SkyBlockWorldEvents {
 
     private SkyBlockWorldEvents() {}
 
+    public static void syncStatus(EntityJoinWorldEvent evt) {
+        if (evt.getEntity() instanceof ServerPlayerEntity) {
+            boolean isSkyblock = SkyBlockChunkGenerator.isWorldSkyblock(evt.getWorld());
+            if (isSkyblock) {
+                PacketHandler.sendTo((ServerPlayerEntity) evt.getEntity(), new PacketWorld());
+            }
+        }
+    }
+
     public static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
         World world = event.getPlayer().world;
         if (SkyBlockChunkGenerator.isWorldSkyblock(world)) {
             SkyBlockSavedData data = SkyBlockSavedData.get((ServerWorld) world);
-            /*if (!data.skyblocks.containsValue(Util.DUMMY_UUID)) {
+            if (!data.skyblocks.containsValue(event.getPlayer().getUniqueID())) {
                 IslandPos islandPos = data.getSpawn();
-                ((ServerWorld) world).func_241124_a__(islandPos.getCenter());
+                world.setSpawnPoint(islandPos.getCenter());
                 spawnPlayer(event.getPlayer(), islandPos);
                 SkyBlock.LOGGER.info("Created the spawn island");
-            }*/
+            }
         }
     }
 
@@ -45,6 +60,29 @@ public class SkyBlockWorldEvents {
         if(ModList.get().isLoaded("gardenofglass") && world.getWorldType().equals(new WorldTypeSkyblock())) {
             SkyblockWorldEvents.createSkyblock(world, pos);
         } else {
+            Biome biome = world.getBiome(pos);
+            BlockState wood = Blocks.OAK_LOG.getDefaultState();
+            BlockState leaves = Blocks.OAK_LEAVES.getDefaultState();
+            if (biome == Biomes.DARK_FOREST || biome == Biomes.DARK_FOREST_HILLS){
+                wood = Blocks.DARK_OAK_LOG.getDefaultState();
+                leaves = Blocks.DARK_OAK_LEAVES.getDefaultState();
+            }
+            else if (biome == Biomes.BIRCH_FOREST || biome == Biomes.BIRCH_FOREST_HILLS || biome == Biomes.TALL_BIRCH_FOREST || biome == Biomes.TALL_BIRCH_HILLS){
+                wood = Blocks.BIRCH_LOG.getDefaultState();
+                leaves = Blocks.BIRCH_LEAVES.getDefaultState();
+            }
+            else if (biome == Biomes.JUNGLE || biome == Biomes.JUNGLE_EDGE || biome == Biomes.JUNGLE_HILLS || biome == Biomes.MODIFIED_JUNGLE || biome == Biomes.MODIFIED_JUNGLE_EDGE){
+                wood = Blocks.JUNGLE_LOG.getDefaultState();
+                leaves = Blocks.JUNGLE_LEAVES.getDefaultState();
+            }
+            else if (biome == Biomes.SAVANNA || biome == Biomes.SAVANNA_PLATEAU || biome == Biomes.SHATTERED_SAVANNA || biome == Biomes.SHATTERED_SAVANNA_PLATEAU){
+                wood = Blocks.ACACIA_LOG.getDefaultState();
+                leaves = Blocks.ACACIA_LEAVES.getDefaultState();
+            }
+            else if (biome == Biomes.SNOWY_TUNDRA || biome == Biomes.MOUNTAINS || biome == Biomes.WOODED_MOUNTAINS || biome == Biomes.GIANT_SPRUCE_TAIGA || biome == Biomes.GIANT_SPRUCE_TAIGA_HILLS || biome == Biomes.TAIGA){
+                wood = Blocks.SPRUCE_LOG.getDefaultState();
+                leaves = Blocks.SPRUCE_LEAVES.getDefaultState();
+            }
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 4; j++) {
                     for (int k = 0; k < 3; k++) {
@@ -52,24 +90,24 @@ public class SkyBlockWorldEvents {
                     }
                 }
             }
-            for(int i = 0; i < 4; i++) {
-                world.setBlockState(pos.add(0, i, 0), Blocks.OAK_LOG.getDefaultState());
+            for(int j = 0; j < 4; j++) {
+                world.setBlockState(pos.add(0, j, 0), wood);
             }
             for (int i = 0; i < 5; i++) {
                 for(int j = 0; j < 2; j++) {
                     for(int k = 0; k < 5; k++) {
-                        world.setBlockState(pos.add(-2 + i, 3 + j, -2 + k), Blocks.OAK_LEAVES.getDefaultState());
+                        world.setBlockState(pos.add(-2 + i, 3 + j, -2 + k), leaves);
                     }
                 }
             }
             for (int i = 0; i < 3; i++) {
                 for(int j = 2; j < 4; j++) {
                     for(int k = 0; k < 3; k++) {
-                        world.setBlockState(pos.add(-1 + i, 3 + j, -1 + k), Blocks.OAK_LEAVES.getDefaultState());
+                        world.setBlockState(pos.add(-1 + i, 3 + j, -1 + k), leaves);
                     }
                 }
             }
-            world.setBlockState(pos.up(3), Blocks.OAK_LOG.getDefaultState());
+            world.setBlockState(pos.up(3), wood);
         }
     }
 }

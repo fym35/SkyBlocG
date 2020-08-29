@@ -27,7 +27,6 @@ public class NetherVoidChunkGenerator extends NetherChunkGenerator {
     @Override
     public void decorate(WorldGenRegion region) {}
 
-    @Override
     public void func_225550_a_(BiomeManager biomeManager, IChunk chunkIn, GenerationStage.Carving carvingSettings) {}
 
 }

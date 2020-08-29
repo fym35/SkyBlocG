@@ -5,3 +5,5 @@ not released yet, but here are some changes i made from today on:
 - Added Nether and End voided (does not create structures yet D:)
 - Config recycled and added some new configs
 - Added Language German and English (might not be completed yet)
+- Updated tree
+- Updated build and gradle.properties

@@ -71,11 +71,11 @@ public class SkyBlockWorldEvents {
                 wood = Blocks.BIRCH_LOG.getDefaultState();
                 leaves = Blocks.BIRCH_LEAVES.getDefaultState();
             }
-            else if (biome == Biomes.JUNGLE || biome == Biomes.JUNGLE_EDGE || biome == Biomes.JUNGLE_HILLS || biome == Biomes.MODIFIED_JUNGLE || biome == Biomes.MODIFIED_JUNGLE_EDGE){
+            else if (biome == Biomes.DESERT_LAKES || biome == Biomes.JUNGLE || biome == Biomes.JUNGLE_EDGE || biome == Biomes.JUNGLE_HILLS || biome == Biomes.MODIFIED_JUNGLE || biome == Biomes.MODIFIED_JUNGLE_EDGE){
                 wood = Blocks.JUNGLE_LOG.getDefaultState();
                 leaves = Blocks.JUNGLE_LEAVES.getDefaultState();
             }
-            else if (biome == Biomes.SAVANNA || biome == Biomes.SAVANNA_PLATEAU || biome == Biomes.SHATTERED_SAVANNA || biome == Biomes.SHATTERED_SAVANNA_PLATEAU){
+            else if (biome == Biomes.DESERT || biome == Biomes.DESERT_HILLS || biome == Biomes.SAVANNA || biome == Biomes.SAVANNA_PLATEAU || biome == Biomes.SHATTERED_SAVANNA || biome == Biomes.SHATTERED_SAVANNA_PLATEAU){
                 wood = Blocks.ACACIA_LOG.getDefaultState();
                 leaves = Blocks.ACACIA_LEAVES.getDefaultState();
             }
@@ -107,7 +107,9 @@ public class SkyBlockWorldEvents {
                     }
                 }
             }
-            world.setBlockState(pos.up(3), wood);
+            for (int i = 3; i < 5; i++) {
+                world.setBlockState(pos.up(i), wood);
+            }
         }
     }
 }

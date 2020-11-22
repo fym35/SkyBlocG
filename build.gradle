@@ -1,24 +1,16 @@
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
-        maven { url = 'https://dist.creeper.host/Sponge/maven' }
         jcenter()
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
-        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-apply plugin: 'pmd'
-apply plugin: 'org.spongepowered.mixin'
-
-mixin {
-    add sourceSets.main, "skyblock.refmap.json"
-}
 
 version = '1.0'
 group = 'java.rempler.skyblock'
@@ -85,17 +77,17 @@ minecraft {
         }
     }
 }
-
+/*
 repositories {
     maven {
         url "https://maven.blamejared.com"
     }
-}
+}*/
 
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge}"
-    compileOnly fg.deobf("vazkii.botania:Botania:${botania_version}:api")
-    compileOnly fg.deobf("vazkii.botania:Botania:${botania_version}")
+    // compileOnly fg.deobf("vazkii.botania:Botania:${botania_version}:api")
+    // compileOnly fg.deobf("vazkii.botania:Botania:${botania_version}")
 }
 
 jar {

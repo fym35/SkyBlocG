@@ -1,5 +1,6 @@
-# SkyBlock
-Just moved some code from Botania 1.16 to 1.15.2 and some Configs from Void Island Control from 1.12.2 to 1.15.2
+# SkyBlock [Master] [![Build Status](https://travis-ci.com/remplerus/SkyBlock.svg?branch=master)](https://travis-ci.com/remplerus/SkyBlock)
+
+Just extracted some code from Botania 1.16 to 1.16.2+ and some Configs from Void Island Control from 1.12.2 to 1.16.2+
 
 What does not work?
 - Structures in nether and end don't generate

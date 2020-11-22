@@ -20,7 +20,7 @@ before_install:
 
 # Prepare the workspace.
 install:
-  - ./gradlew setupCIWorkspace -S
+  - ./gradlew buildEnvironment -S
 
 # Build the Project.
 script:

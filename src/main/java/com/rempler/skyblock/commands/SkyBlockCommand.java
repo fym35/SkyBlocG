@@ -1,16 +1,22 @@
 package com.rempler.skyblock.commands;
 
 import com.mojang.brigadier.Command;
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
-import com.rempler.skyblock.helpers.IslandPos;
+import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.rempler.skyblock.config.ConfigOptions;
+import com.rempler.skyblock.helpers.IslandPos;
 import com.rempler.skyblock.world.SkyBlockSavedData;
 import com.rempler.skyblock.world.SkyBlockWorldEvents;
 import com.rempler.skyblock.world.overworld.SkyBlockChunkGenerator;
 import net.minecraft.command.CommandSource;
+import net.minecraft.command.Commands;
+import net.minecraft.command.ISuggestionProvider;
 import net.minecraft.command.arguments.EntityArgument;
+import net.minecraft.command.arguments.UUIDArgument;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -29,6 +35,49 @@ public class SkyBlockCommand {
             new TranslationTextComponent("skyblock.command.noisland"));
     protected static final SimpleCommandExceptionType NOT_ENABLED = new SimpleCommandExceptionType(
             new TranslationTextComponent("skyblock.command.enabled"));
+
+    public static void register(CommandDispatcher<CommandSource> dispatcher) {
+        // This isn't what we consider the "primary" name. It's just here to be a reminder for old /botania-skyblock-spread users.
+        // However some Mojang code seems to assume that aliases are made alphabetically...
+        LiteralArgumentBuilder<CommandSource> commandBuilder = Commands.literal("botania-skyblock")
+                .requires(s -> s.hasPermissionLevel(2))
+                .then(Commands.literal("help")
+                        .executes(SkyBlockCommand::printHelp))
+                .then(Commands.literal("island")
+                        .then(Commands.argument("player", EntityArgument.player())
+                                .executes(SkyBlockCommand::createIsland)))
+                .then(Commands.literal("spawn")
+                        .executes(SkyBlockCommand::teleportToSpawn))
+
+                .then(Commands.literal("visit")
+                        .then(Commands.argument("player", EntityArgument.player())
+                                .executes(ctx -> teleportToIsland(ctx, EntityArgument.getPlayer(ctx, "player")))
+                        )
+                        .then(Commands.argument("playerUuid", UUIDArgument.func_239194_a_())
+                                .suggests((ctx, builder) -> ISuggestionProvider.suggest(
+                                        SkyBlockSavedData.get(ctx.getSource().getWorld()).skyblocks
+                                                .values().stream().map(UUID::toString),
+                                        builder))
+                                .executes(ctx -> teleportToIsland(ctx, UUIDArgument.func_239195_a_(ctx, "playerUuid")))
+                        )
+                )
+
+                .then(Commands.literal("regen-island")
+                        .then(Commands.argument("player", EntityArgument.player())
+                                .executes(ctx -> rebuildIsland(ctx, EntityArgument.getPlayer(ctx, "player")))
+                        )
+                        .then(Commands.argument("playerUuid", UUIDArgument.func_239194_a_())
+                                .suggests((ctx, builder) -> ISuggestionProvider.suggest(
+                                        SkyBlockSavedData.get(ctx.getSource().getWorld()).skyblocks
+                                                .values().stream().map(UUID::toString),
+                                        builder))
+                                .executes(ctx -> rebuildIsland(ctx, UUIDArgument.func_239195_a_(ctx, "playerUuid")))
+                        )
+                );
+        LiteralCommandNode<CommandSource> command = dispatcher.register(commandBuilder);
+        dispatcher.register(Commands.literal("gardenofglass").redirect(command));
+        dispatcher.register(Commands.literal("gog").redirect(command));
+    }
 
     protected static int printHelp(CommandContext<CommandSource> ctx) {
         for (int i = 0; i < 5; i++) {
@@ -98,6 +147,15 @@ public class SkyBlockCommand {
         throw NOT_ENABLED.create();
     }
 
+    private static int teleportToIsland(CommandContext<CommandSource> ctx, UUID owner) throws CommandSyntaxException {
+        if(ConfigOptions.Common.allowVisitCommand.get()) {
+            return doTeleportToIsland(ctx, owner, new TranslationTextComponent("skyblock.command.teleport.success",
+                    ctx.getSource().getDisplayName(), owner));
+        }
+        throw NOT_ENABLED.create();
+    }
+
+
     static int teleportToSpawn(CommandContext<CommandSource> ctx) throws CommandSyntaxException {
         if (ConfigOptions.Common.allowHomeCommand.get()) {
             return doTeleportToIsland(ctx, Objects.requireNonNull(ctx.getSource().getEntity()).getUniqueID(), new TranslationTextComponent("skyblock.command.spawn.success",
@@ -109,6 +167,13 @@ public class SkyBlockCommand {
     static int rebuildIsland(CommandContext<CommandSource> ctx, ServerPlayerEntity owner) throws CommandSyntaxException {
         if (ConfigOptions.Common.allowIslandRegen.get()) {
             return doRebuildIsland(ctx, owner.getUniqueID(), new TranslationTextComponent("skyblock.command.regenisland.success", owner.getDisplayName()));
+        }
+        throw NOT_ENABLED.create();
+    }
+
+    private static int rebuildIsland(CommandContext<CommandSource> ctx, UUID owner) throws CommandSyntaxException {
+        if (ConfigOptions.Common.allowIslandRegen.get()) {
+            return doRebuildIsland(ctx, owner, new TranslationTextComponent("skyblock.command.regenisland.success", owner));
         }
         throw NOT_ENABLED.create();
     }

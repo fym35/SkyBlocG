@@ -9,16 +9,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.fml.ModList;
-import vazkii.botania.common.world.SkyblockWorldEvents;
-import vazkii.botania.common.world.WorldTypeSkyblock;
 
 public class SkyBlockWorldEvents {
 
@@ -39,7 +36,7 @@ public class SkyBlockWorldEvents {
             SkyBlockSavedData data = SkyBlockSavedData.get((ServerWorld) world);
             if (!data.skyblocks.containsValue(event.getPlayer().getUniqueID())) {
                 IslandPos islandPos = data.getSpawn();
-                world.setSpawnPoint(islandPos.getCenter());
+                ((ServerWorld) world).func_241124_a__(islandPos.getCenter(), 0);
                 spawnPlayer(event.getPlayer(), islandPos);
                 SkyBlock.LOGGER.info("Created the spawn island");
             }
@@ -52,64 +49,61 @@ public class SkyBlockWorldEvents {
         if (player instanceof ServerPlayerEntity) {
             ServerPlayerEntity pmp = (ServerPlayerEntity) player;
             pmp.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
-            pmp.teleport((ServerWorld) pmp.world.getWorld(), pos.getX(), pos.getY(), pos.getZ(), 0, 0);
+            pmp.func_242111_a(pmp.world.getDimensionKey(), pos, 0, true, false);
         }
     }
 
     public static void createSkyblock(World world, BlockPos pos) {
-        if(ModList.get().isLoaded("gardenofglass") && world.getWorldType().equals(new WorldTypeSkyblock())) {
-            SkyblockWorldEvents.createSkyblock(world, pos);
-        } else {
-            Biome biome = world.getBiome(pos);
-            BlockState wood = Blocks.OAK_LOG.getDefaultState();
-            BlockState leaves = Blocks.OAK_LEAVES.getDefaultState();
-            if (biome == Biomes.DARK_FOREST || biome == Biomes.DARK_FOREST_HILLS){
-                wood = Blocks.DARK_OAK_LOG.getDefaultState();
-                leaves = Blocks.DARK_OAK_LEAVES.getDefaultState();
-            }
-            else if (biome == Biomes.BIRCH_FOREST || biome == Biomes.BIRCH_FOREST_HILLS || biome == Biomes.TALL_BIRCH_FOREST || biome == Biomes.TALL_BIRCH_HILLS){
-                wood = Blocks.BIRCH_LOG.getDefaultState();
-                leaves = Blocks.BIRCH_LEAVES.getDefaultState();
-            }
-            else if (biome == Biomes.DESERT_LAKES || biome == Biomes.JUNGLE || biome == Biomes.JUNGLE_EDGE || biome == Biomes.JUNGLE_HILLS || biome == Biomes.MODIFIED_JUNGLE || biome == Biomes.MODIFIED_JUNGLE_EDGE){
-                wood = Blocks.JUNGLE_LOG.getDefaultState();
-                leaves = Blocks.JUNGLE_LEAVES.getDefaultState();
-            }
-            else if (biome == Biomes.DESERT || biome == Biomes.DESERT_HILLS || biome == Biomes.SAVANNA || biome == Biomes.SAVANNA_PLATEAU || biome == Biomes.SHATTERED_SAVANNA || biome == Biomes.SHATTERED_SAVANNA_PLATEAU){
-                wood = Blocks.ACACIA_LOG.getDefaultState();
-                leaves = Blocks.ACACIA_LEAVES.getDefaultState();
-            }
-            else if (biome == Biomes.SNOWY_TUNDRA || biome == Biomes.MOUNTAINS || biome == Biomes.WOODED_MOUNTAINS || biome == Biomes.GIANT_SPRUCE_TAIGA || biome == Biomes.GIANT_SPRUCE_TAIGA_HILLS || biome == Biomes.TAIGA){
-                wood = Blocks.SPRUCE_LOG.getDefaultState();
-                leaves = Blocks.SPRUCE_LEAVES.getDefaultState();
-            }
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 4; j++) {
-                    for (int k = 0; k < 3; k++) {
-                        world.setBlockState(pos.add(-1 + i, -1 - j, -1 + k), j == 0 ? Blocks.GRASS_BLOCK.getDefaultState() : j == 3 ? Blocks.BEDROCK.getDefaultState() : Blocks.DIRT.getDefaultState());
-                    }
+        ResourceLocation biome = world.getBiome(pos).getRegistryName();
+        BlockState wood = Blocks.OAK_LOG.getDefaultState();
+        BlockState leaves = Blocks.OAK_LEAVES.getDefaultState();
+        if (biome == Biomes.DARK_FOREST.getRegistryName() || biome == Biomes.DARK_FOREST_HILLS.getRegistryName()){
+            wood = Blocks.DARK_OAK_LOG.getDefaultState();
+            leaves = Blocks.DARK_OAK_LEAVES.getDefaultState();
+        }
+        else if (biome == Biomes.BIRCH_FOREST.getRegistryName() || biome == Biomes.BIRCH_FOREST_HILLS.getRegistryName() || biome == Biomes.TALL_BIRCH_FOREST.getRegistryName() || biome == Biomes.TALL_BIRCH_HILLS.getRegistryName()){
+            wood = Blocks.BIRCH_LOG.getDefaultState();
+            leaves = Blocks.BIRCH_LEAVES.getDefaultState();
+        }
+        else if (biome == Biomes.DESERT_LAKES.getRegistryName() || biome == Biomes.JUNGLE.getRegistryName() || biome == Biomes.JUNGLE_EDGE.getRegistryName() || biome == Biomes.JUNGLE_HILLS.getRegistryName() || biome == Biomes.MODIFIED_JUNGLE.getRegistryName() || biome == Biomes.MODIFIED_JUNGLE_EDGE.getRegistryName()){
+            wood = Blocks.JUNGLE_LOG.getDefaultState();
+            leaves = Blocks.JUNGLE_LEAVES.getDefaultState();
+        }
+        else if (biome == Biomes.DESERT.getRegistryName() || biome == Biomes.DESERT_HILLS.getRegistryName() || biome == Biomes.SAVANNA.getRegistryName() || biome == Biomes.SAVANNA_PLATEAU.getRegistryName() || biome == Biomes.SHATTERED_SAVANNA.getRegistryName() || biome == Biomes.SHATTERED_SAVANNA_PLATEAU.getRegistryName()){
+            wood = Blocks.ACACIA_LOG.getDefaultState();
+            leaves = Blocks.ACACIA_LEAVES.getDefaultState();
+        }
+        else if (biome == Biomes.SNOWY_TUNDRA.getRegistryName() || biome == Biomes.MOUNTAINS.getRegistryName() || biome == Biomes.WOODED_MOUNTAINS.getRegistryName() || biome == Biomes.GIANT_SPRUCE_TAIGA.getRegistryName() || biome == Biomes.GIANT_SPRUCE_TAIGA_HILLS.getRegistryName() || biome == Biomes.TAIGA.getRegistryName()){
+            wood = Blocks.SPRUCE_LOG.getDefaultState();
+            leaves = Blocks.SPRUCE_LEAVES.getDefaultState();
+        }
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 4; j++) {
+                for (int k = 0; k < 3; k++) {
+                    world.setBlockState(pos.add(-1 + i, -1 - j, -1 + k), j == 0 ? Blocks.GRASS_BLOCK.getDefaultState() : j == 3 ? Blocks.BEDROCK.getDefaultState() : Blocks.DIRT.getDefaultState());
                 }
-            }
-            for(int j = 0; j < 4; j++) {
-                world.setBlockState(pos.add(0, j, 0), wood);
-            }
-            for (int i = 0; i < 5; i++) {
-                for(int j = 0; j < 2; j++) {
-                    for(int k = 0; k < 5; k++) {
-                        world.setBlockState(pos.add(-2 + i, 3 + j, -2 + k), leaves);
-                    }
-                }
-            }
-            for (int i = 0; i < 3; i++) {
-                for(int j = 2; j < 4; j++) {
-                    for(int k = 0; k < 3; k++) {
-                        world.setBlockState(pos.add(-1 + i, 3 + j, -1 + k), leaves);
-                    }
-                }
-            }
-            for (int i = 3; i < 5; i++) {
-                world.setBlockState(pos.up(i), wood);
             }
         }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(0, j, 0), wood);
+        }
+        for (int i = 0; i < 5; i++) {
+            for(int j = 0; j < 2; j++) {
+                for(int k = 0; k < 5; k++) {
+                    world.setBlockState(pos.add(-2 + i, 3 + j, -2 + k), leaves);
+                }
+            }
+        }
+        for (int i = 0; i < 3; i++) {
+            for(int j = 2; j < 4; j++) {
+                for(int k = 0; k < 3; k++) {
+                    world.setBlockState(pos.add(-1 + i, 3 + j, -1 + k), leaves);
+                }
+            }
+        }
+        for (int i = 3; i < 5; i++) {
+            world.setBlockState(pos.up(i), wood);
+        }
+
     }
 }

@@ -36,21 +36,6 @@ env:
   global:
     TERM=dumb
 
-before_deploy:
-  - ./gradlew jar
-  - export NAME="v$(./gradlew version -q)"
-  - git tag $NAME
-
-deploy:
-  - provider: releases
-    api_key: ""
-    file_glob: true
-    file: "build/libs/*"
-    skip_cleanup: true
-    name: $NAME
-    on:
-      branch: master
-
 # So the cache doesn't get rebuilt every time.
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock

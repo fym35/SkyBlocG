@@ -2,18 +2,17 @@ package com.rempler.skyblock.world;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-
-import com.rempler.skyblock.helpers.IslandPos;
 import com.rempler.skyblock.config.ConfigOptions;
+import com.rempler.skyblock.helpers.IslandPos;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraft.util.Util;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.WorldSavedData;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
-
 import java.util.Map;
 import java.util.UUID;
 
@@ -35,12 +34,11 @@ public class SkyBlockSavedData extends WorldSavedData {
     }
 
     public IslandPos getSpawn() {
-        //TODO 1.16.2
-        /*if (skyblocks.containsValue(Util.DUMMY_UUID)) {
+        if (skyblocks.containsValue(Util.DUMMY_UUID)) {
             return skyblocks.inverse().get(Util.DUMMY_UUID);
-        }*/
+        }
         IslandPos pos = new IslandPos(OFFSET, OFFSET);
-        //skyblocks.put(pos, Util.DUMMY_UUID);
+        skyblocks.put(pos, Util.DUMMY_UUID);
         markDirty();
         return pos;
     }

@@ -15,6 +15,7 @@ import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.server.ServerChunkProvider;
 
+import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Supplier;
 
@@ -22,7 +23,7 @@ import static com.rempler.skyblock.helpers.ResourceLocationHelper.prefix;
 
 @ParametersAreNonnullByDefault
 public class SkyBlockChunkGenerator extends ChunkGenerator {
-    public static final Codec<SkyBlockChunkGenerator> CODEC = RecordCodecBuilder.create(
+    public static Codec<SkyBlockChunkGenerator> CODEC = RecordCodecBuilder.create(
             (instance) -> instance.group(
                     BiomeProvider.CODEC.fieldOf("biome_source").forGetter((gen) -> gen.biomeProvider),
                     Codec.LONG.fieldOf("seed").stable().forGetter((gen) -> gen.seed),
@@ -47,11 +48,13 @@ public class SkyBlockChunkGenerator extends ChunkGenerator {
                 && ((ServerChunkProvider) world.getChunkProvider()).getChunkGenerator() instanceof SkyBlockChunkGenerator;
     }
 
+    @Nonnull
     @Override
     protected Codec<? extends ChunkGenerator> func_230347_a_() {
         return CODEC;
     }
 
+    @Nonnull
     @Override
     public ChunkGenerator func_230349_a_(long newSeed) {
         return new SkyBlockChunkGenerator(this.biomeProvider.getBiomeProvider(newSeed), newSeed, settings);
@@ -76,6 +79,7 @@ public class SkyBlockChunkGenerator extends ChunkGenerator {
         return 0;
     }
 
+    @Nonnull
     @Override
     public IBlockReader func_230348_a_(int p_230348_1_, int p_230348_2_) {
         return new Blockreader(new BlockState[0]);

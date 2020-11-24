@@ -5,6 +5,7 @@ import com.rempler.skyblock.config.ConfigOptions;
 import com.rempler.skyblock.helpers.PacketHandler;
 import com.rempler.skyblock.world.SkyBlockWorldEvents;
 import com.rempler.skyblock.world.SkyBlockWorldType;
+import com.rempler.skyblock.world.overworld.SkyBlockChunkGenerator;
 import net.minecraft.client.gui.screen.BiomeGeneratorTypeScreens;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -38,6 +39,7 @@ public class SkyBlock
     }
 
     private void setup(final FMLCommonSetupEvent event) {
+        SkyBlockChunkGenerator.init();
         PacketHandler.init();
     }
 

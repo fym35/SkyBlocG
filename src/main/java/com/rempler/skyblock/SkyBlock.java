@@ -9,6 +9,7 @@ import com.rempler.skyblock.world.overworld.SkyBlockChunkGenerator;
 import net.minecraft.client.gui.screen.BiomeGeneratorTypeScreens;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -44,7 +45,9 @@ public class SkyBlock
     }
 
     private void clientSetup(FMLClientSetupEvent event) {
-        BiomeGeneratorTypeScreens.field_239068_c_.add(SkyBlockWorldType.INSTANCE);
+        if(!ModList.get().isLoaded("gardenofglass") || !ModList.get().isLoaded("optifine")) {
+            BiomeGeneratorTypeScreens.field_239068_c_.add(SkyBlockWorldType.INSTANCE);
+        }
     }
 
     private void registerCommands(RegisterCommandsEvent event) {

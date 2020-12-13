@@ -16,12 +16,12 @@ public class PacketWorld {
 
     public static void handle(PacketWorld pkt, Supplier<NetworkEvent.Context> ctx) {
         if (ctx.get().getDirection().getReceptionSide().isClient()) {
-            ctx.get().enqueueWork(() -> {
-                ClientWorld.ClientWorldInfo info = Minecraft.getInstance().world.getWorldInfo();
-                if (info instanceof SkyBlockWorldInfo) {
-                    ((SkyBlockWorldInfo) info).markSkyblock();
-                }
-            });
+                ctx.get().enqueueWork(() -> {
+                    ClientWorld.ClientWorldInfo info = Minecraft.getInstance().world.getWorldInfo();
+                    if (info instanceof SkyBlockWorldInfo) {
+                        ((SkyBlockWorldInfo) info).markSkyblock();
+                    }
+                });
         }
     }
 }

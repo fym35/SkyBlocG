@@ -23,6 +23,7 @@ import static com.rempler.skyblock.helpers.ResourceLocationHelper.prefix;
 
 @ParametersAreNonnullByDefault
 public class SkyBlockChunkGenerator extends ChunkGenerator {
+    // [VanillaCopy] overworld chunk gen
     public static Codec<SkyBlockChunkGenerator> CODEC = RecordCodecBuilder.create(
             (instance) -> instance.group(
                     BiomeProvider.CODEC.fieldOf("biome_source").forGetter((gen) -> gen.biomeProvider),
@@ -31,7 +32,7 @@ public class SkyBlockChunkGenerator extends ChunkGenerator {
             ).apply(instance, instance.stable(SkyBlockChunkGenerator::new)));
 
     public static void init() {
-        Registry.register(Registry.CHUNK_GENERATOR_CODEC, prefix("skyblock"), SkyBlockChunkGenerator.CODEC);
+        Registry.register(Registry.CHUNK_GENERATOR_CODEC, prefix("skyblock-type"), SkyBlockChunkGenerator.CODEC);
     }
 
     private final long seed;

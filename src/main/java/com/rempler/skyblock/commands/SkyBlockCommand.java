@@ -39,7 +39,7 @@ public class SkyBlockCommand {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         // This isn't what we consider the "primary" name. It's just here to be a reminder for old /botania-skyblock-spread users.
         // However some Mojang code seems to assume that aliases are made alphabetically...
-        LiteralArgumentBuilder<CommandSource> commandBuilder = Commands.literal("botania-skyblock")
+        LiteralArgumentBuilder<CommandSource> commandBuilder = Commands.literal("skyblock")
                 .requires(s -> s.hasPermissionLevel(2))
                 .then(Commands.literal("help")
                         .executes(SkyBlockCommand::printHelp))
@@ -75,8 +75,8 @@ public class SkyBlockCommand {
                         )
                 );
         LiteralCommandNode<CommandSource> command = dispatcher.register(commandBuilder);
-        dispatcher.register(Commands.literal("gardenofglass").redirect(command));
-        dispatcher.register(Commands.literal("gog").redirect(command));
+        dispatcher.register(Commands.literal("island").redirect(command));
+        dispatcher.register(Commands.literal("is").redirect(command));
     }
 
     protected static int printHelp(CommandContext<CommandSource> ctx) {

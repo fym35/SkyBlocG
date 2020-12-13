@@ -1,5 +1,5 @@
 modLoader="javafml" #mandatory
-loaderVersion="[33,)" #mandatory
+loaderVersion="[35,)" #mandatory
 license="GPL"
 [[mods]] #mandatory
 modId="skyblock" #mandatory
@@ -12,13 +12,13 @@ Just some WorldTypes for The Void
 [[dependencies.skyblock]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[33,)" #mandatory
+    versionRange="[35.1.7,)" #mandatory
     ordering="NONE"
     side="BOTH"
 # Here's another dependency
 [[dependencies.skyblock]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.2,1.17]"
+    versionRange="[1.16.4,1.17]"
     ordering="NONE"
     side="BOTH"

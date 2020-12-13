@@ -10,6 +10,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biomes;
@@ -34,7 +35,7 @@ public class SkyBlockWorldEvents {
         World world = event.getPlayer().world;
         if (SkyBlockChunkGenerator.isWorldSkyblock(world)) {
             SkyBlockSavedData data = SkyBlockSavedData.get((ServerWorld) world);
-            if (!data.skyblocks.containsValue(event.getPlayer().getUniqueID())) {
+            if (!data.skyblocks.containsValue(Util.DUMMY_UUID)) {
                 IslandPos islandPos = data.getSpawn();
                 ((ServerWorld) world).func_241124_a__(islandPos.getCenter(), 0);
                 spawnPlayer(event.getPlayer(), islandPos);
@@ -46,6 +47,7 @@ public class SkyBlockWorldEvents {
     public static void spawnPlayer(PlayerEntity player, IslandPos islandPos) {
         BlockPos pos = islandPos.getCenter();
         createSkyblock(player.world, pos);
+
         if (player instanceof ServerPlayerEntity) {
             ServerPlayerEntity pmp = (ServerPlayerEntity) player;
             pmp.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);

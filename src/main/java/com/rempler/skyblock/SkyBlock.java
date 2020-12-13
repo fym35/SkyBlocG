@@ -10,7 +10,11 @@ import com.rempler.skyblock.world.overworld.SkyBlockChunkGenerator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.ForgeWorldType;
 import net.minecraftforge.event.RegisterCommandsEvent;
+<<<<<<< HEAD
 import net.minecraftforge.event.RegistryEvent;
+=======
+import net.minecraftforge.fml.ModList;
+>>>>>>> a4d761118ab693aa2c3e19ece44a10393525c68f
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -48,8 +52,15 @@ public class SkyBlock
         event.enqueueWork(SkyBlockChunkGenerator::init);
     }
 
+<<<<<<< HEAD
     private void registerWorldtype(RegistryEvent.Register<ForgeWorldType> event) {
         Registry.register(event.getRegistry(), prefix("skyblock-type"), SkyBlockWorldType.INSTANCE);
+=======
+    private void clientSetup(FMLClientSetupEvent event) {
+        if(!ModList.get().isLoaded("gardenofglass") || !ModList.get().isLoaded("optifine")) {
+            BiomeGeneratorTypeScreens.field_239068_c_.add(SkyBlockWorldType.INSTANCE);
+        }
+>>>>>>> a4d761118ab693aa2c3e19ece44a10393525c68f
     }
 
     private void registerCommands(RegisterCommandsEvent event) {

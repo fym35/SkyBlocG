@@ -6,5 +6,5 @@ What does not work?
 - no teaming (might not come without help!)
 
 What you can do:
-- Fork it, but give Vazkii some credits, cuz it's 90% his code
+- Fork it, but give those Botania guys some credits, cuz it's 90% their code
 - Yeah, do whatever you want

@@ -1,5 +1,5 @@
 {
-  "generator.the-voids-type": "Skyblock",
+  "generator.skyblock-type": "Skyblock",
   "generator.skyblock-type.info": "Einfach nur SkyBlock",
   "skyblock.command.island.success": "%s, deine Insel wurde erfolgreich erstellt",
   "skyblock.command.island.teleported": "Du wurdest teleportiert, da du schon eine Insel hast",

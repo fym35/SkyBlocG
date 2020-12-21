@@ -51,7 +51,7 @@ public class SkyBlock
     private void registerWorldtype(RegistryEvent.Register<ForgeWorldType> event) {
         Registry.register(event.getRegistry(), prefix("skyblock-type"), SkyBlockWorldType.INSTANCE);
     }
-
+	    
     private void registerCommands(RegisterCommandsEvent event) {
         SkyBlockCommand.register(event.getDispatcher());
     }

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:the_end",
+  "generator": {
+    "type": "minecraft:noise",
+    "seed": -1803077241,
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "seed": -1803077241,
+      "biome": "minecraft:end_void"
+    },
+    "settings": "minecraft:voided_end"
+  }
+}

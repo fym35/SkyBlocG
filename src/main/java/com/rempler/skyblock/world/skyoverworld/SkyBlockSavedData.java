@@ -1,4 +1,4 @@
-package com.rempler.skyblock.world;
+package com.rempler.skyblock.world.skyoverworld;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;

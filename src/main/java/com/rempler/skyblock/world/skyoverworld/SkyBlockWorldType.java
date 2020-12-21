@@ -1,6 +1,5 @@
-package com.rempler.skyblock.world;
+package com.rempler.skyblock.world.skyoverworld;
 
-import com.rempler.skyblock.world.overworld.SkyBlockChunkGenerator;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.OverworldBiomeProvider;

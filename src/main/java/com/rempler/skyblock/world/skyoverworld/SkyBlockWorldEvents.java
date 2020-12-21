@@ -1,10 +1,9 @@
-package com.rempler.skyblock.world;
+package com.rempler.skyblock.world.skyoverworld;
 
 import com.rempler.skyblock.SkyBlock;
 import com.rempler.skyblock.helpers.IslandPos;
 import com.rempler.skyblock.helpers.PacketHandler;
 import com.rempler.skyblock.helpers.PacketWorld;
-import com.rempler.skyblock.world.overworld.SkyBlockChunkGenerator;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;

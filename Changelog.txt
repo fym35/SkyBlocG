@@ -1,5 +1,11 @@
 not released yet, but here are some changes i made from today on:
 
+22/12/2020
+- Added voided working Nether
+- Removed End due to no Dragonfight with voided End
+- Removed some configs
+- Updated to Forge 35.1.7
+
 29/08/2020
 - Changed how command works
 - Added Nether and End voided (does not create structures yet D:)

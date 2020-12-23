@@ -12,8 +12,8 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.1'
-group = 'java.rempler.skyblock'
+version = '1.2'
+group = 'com.rempler.skyblock'
 archivesBaseName = 'SkyBlock'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
@@ -22,8 +22,6 @@ println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getPro
 
 minecraft {
     mappings channel: 'snapshot', version: "${mappings_version}"
-
-    accessTransformer = file('src/main/resources/accessor.cfg')
 
     runs {
         client {
@@ -77,17 +75,9 @@ minecraft {
         }
     }
 }
-/*
-repositories {
-    maven {
-        url "https://maven.blamejared.com"
-    }
-}*/
 
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge}"
-    // compileOnly fg.deobf("vazkii.botania:Botania:${botania_version}:api")
-    // compileOnly fg.deobf("vazkii.botania:Botania:${botania_version}")
 }
 
 jar {

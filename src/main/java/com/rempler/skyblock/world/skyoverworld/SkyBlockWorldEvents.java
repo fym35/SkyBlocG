@@ -59,10 +59,12 @@ public class SkyBlockWorldEvents {
         BlockState wood = Blocks.OAK_LOG.getDefaultState();
         BlockState leaves = Blocks.OAK_LEAVES.getDefaultState();
         BlockState chest = Blocks.CHEST.getDefaultState();
+        BlockState air = Blocks.AIR.getDefaultState();
         if (biome == Biomes.DARK_FOREST.getRegistryName() || biome == Biomes.DARK_FOREST_HILLS.getRegistryName()){
             chest = Blocks.CHEST.getDefaultState();
             wood = Blocks.DARK_OAK_LOG.getDefaultState();
             leaves = Blocks.DARK_OAK_LEAVES.getDefaultState();
+            air = Blocks.AIR.getDefaultState();
         }
         else if (biome == Biomes.BIRCH_FOREST.getRegistryName() || biome == Biomes.BIRCH_FOREST_HILLS.getRegistryName() || biome == Biomes.TALL_BIRCH_FOREST.getRegistryName() || biome == Biomes.TALL_BIRCH_HILLS.getRegistryName()){
             chest = Blocks.CHEST.getDefaultState();
@@ -96,6 +98,9 @@ public class SkyBlockWorldEvents {
         }
         for(int j = 0; j < 4; j++) {
             world.setBlockState(pos.add(0, j, -1), chest);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(0, j+1, -1), air);
         }
         for (int i = 0; i < 5; i++) {
             for(int j = 0; j < 2; j++) {

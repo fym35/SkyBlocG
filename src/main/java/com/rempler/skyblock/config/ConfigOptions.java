@@ -31,7 +31,6 @@ public final class ConfigOptions {
                     "By default, the scale is 8, putting each island on points separated by 2048 blocks.\n" +
                     "You can't set the Value < 4 due to Nether portal collisions.")
                     .defineInRange("islandDistance", 8, 4, 512);
-            islandSize = server.comment("Width of islands (Not yet working!!!)").defineInRange("islandSize", 3, 1, 15);
             islandYLevel = server.comment("Y Level to spawn islands at (Set to 2 above where you want the ground block)").defineInRange("islandYLevel", 72, 1, 240);
             bottomBlockType = server.comment("Type of block to spawn under islands (Not yet working!!!)").defineEnum("bottomBlockType", BottomBlockType.BEDROCK);
             allowIslandCreation = server.comment("Allow players to create or reset their islands").define("allowIslandCreation", true);

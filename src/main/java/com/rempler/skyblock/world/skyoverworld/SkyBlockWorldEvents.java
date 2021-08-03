@@ -60,29 +60,41 @@ public class SkyBlockWorldEvents {
         BlockState leaves = Blocks.OAK_LEAVES.getDefaultState();
         BlockState chest = Blocks.CHEST.getDefaultState();
         BlockState air = Blocks.AIR.getDefaultState();
+        BlockState grass_block = Blocks.GRASS_BLOCK.getDefaultState();
+        BlockState dirt = Blocks.DIRT.getDefaultState();
         if (biome == Biomes.DARK_FOREST.getRegistryName() || biome == Biomes.DARK_FOREST_HILLS.getRegistryName()){
             chest = Blocks.CHEST.getDefaultState();
+            dirt = Blocks.DIRT.getDefaultState();
+            grass_block = Blocks.GRASS_BLOCK.getDefaultState();
             wood = Blocks.DARK_OAK_LOG.getDefaultState();
             leaves = Blocks.DARK_OAK_LEAVES.getDefaultState();
             air = Blocks.AIR.getDefaultState();
         }
         else if (biome == Biomes.BIRCH_FOREST.getRegistryName() || biome == Biomes.BIRCH_FOREST_HILLS.getRegistryName() || biome == Biomes.TALL_BIRCH_FOREST.getRegistryName() || biome == Biomes.TALL_BIRCH_HILLS.getRegistryName()){
             chest = Blocks.CHEST.getDefaultState();
+            dirt = Blocks.DIRT.getDefaultState();
+            grass_block = Blocks.GRASS_BLOCK.getDefaultState();
             wood = Blocks.BIRCH_LOG.getDefaultState();
             leaves = Blocks.BIRCH_LEAVES.getDefaultState();
         }
         else if (biome == Biomes.DESERT_LAKES.getRegistryName() || biome == Biomes.JUNGLE.getRegistryName() || biome == Biomes.JUNGLE_EDGE.getRegistryName() || biome == Biomes.JUNGLE_HILLS.getRegistryName() || biome == Biomes.MODIFIED_JUNGLE.getRegistryName() || biome == Biomes.MODIFIED_JUNGLE_EDGE.getRegistryName()){
             chest = Blocks.CHEST.getDefaultState();
+            dirt = Blocks.DIRT.getDefaultState();
+            grass_block = Blocks.GRASS_BLOCK.getDefaultState();
             wood = Blocks.JUNGLE_LOG.getDefaultState();
             leaves = Blocks.JUNGLE_LEAVES.getDefaultState();
         }
         else if (biome == Biomes.DESERT.getRegistryName() || biome == Biomes.DESERT_HILLS.getRegistryName() || biome == Biomes.SAVANNA.getRegistryName() || biome == Biomes.SAVANNA_PLATEAU.getRegistryName() || biome == Biomes.SHATTERED_SAVANNA.getRegistryName() || biome == Biomes.SHATTERED_SAVANNA_PLATEAU.getRegistryName()){
             chest = Blocks.CHEST.getDefaultState();
+            dirt = Blocks.DIRT.getDefaultState();
+            grass_block = Blocks.GRASS_BLOCK.getDefaultState();
             wood = Blocks.ACACIA_LOG.getDefaultState();
             leaves = Blocks.ACACIA_LEAVES.getDefaultState();
         }
         else if (biome == Biomes.SNOWY_TUNDRA.getRegistryName() || biome == Biomes.MOUNTAINS.getRegistryName() || biome == Biomes.WOODED_MOUNTAINS.getRegistryName() || biome == Biomes.GIANT_SPRUCE_TAIGA.getRegistryName() || biome == Biomes.GIANT_SPRUCE_TAIGA_HILLS.getRegistryName() || biome == Biomes.TAIGA.getRegistryName()){
             chest = Blocks.CHEST.getDefaultState();
+            dirt = Blocks.DIRT.getDefaultState();
+            grass_block = Blocks.GRASS_BLOCK.getDefaultState();
             wood = Blocks.SPRUCE_LOG.getDefaultState();
             leaves = Blocks.SPRUCE_LEAVES.getDefaultState();
         }
@@ -98,6 +110,109 @@ public class SkyBlockWorldEvents {
         }
         for(int j = 0; j < 4; j++) {
             world.setBlockState(pos.add(0, j, -1), chest);
+        }
+
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(0, j-2, 2), dirt);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(1, j-2, 2), dirt);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(0, j-1, 2), grass_block);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(1, j-1, 2), grass_block);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(-1, j-2, 2), grass_block);
+        }
+        
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(0, j, 2), air);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(1, j, 2), air);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(-1, j, 2), air);
+        }
+
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(0, j-2, -2), dirt);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(1, j-2, -2), dirt);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(0, j-1, -2), grass_block);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(1, j-1, -2), grass_block);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(-1, j-2, -2), grass_block);
+        }
+        
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(0, j, -2), air);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(1, j, -2), air);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(-1, j, -2), air);
+        }
+
+        //expanding the island on left
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(-2, j-1, -2), grass_block);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(-2, j-2, -2), dirt);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(-2, j-1, -1), grass_block);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(-2, j-2, -1), dirt);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(-2, j-1, 0), grass_block);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(-2, j-2, 0), dirt);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(-2, j-1, 1), grass_block);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(-2, j-2, 1), dirt);
+        }
+        //expanding the island on right
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(2, j-1, -2), grass_block);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(2, j-2, -2), dirt);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(2, j-1, -1), grass_block);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(2, j-2, -1), dirt);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(2, j-1, 0), grass_block);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(2, j-2, 0), dirt);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(2, j-1, 1), grass_block);
+        }
+        for(int j = 0; j < 4; j++) {
+            world.setBlockState(pos.add(2, j-2, 1), dirt);
         }
         for(int j = 0; j < 4; j++) {
             world.setBlockState(pos.add(0, j+1, -1), air);

@@ -9,7 +9,6 @@ public final class ConfigOptions {
     public static class Common {
         //Common Island Options
         public static ForgeConfigSpec.IntValue islandDistance;
-        public static ForgeConfigSpec.IntValue islandSize;
         public static ForgeConfigSpec.IntValue islandYLevel;
         public static ForgeConfigSpec.EnumValue<BottomBlockType> bottomBlockType;
         public static ForgeConfigSpec.BooleanValue allowIslandCreation;
@@ -31,21 +30,5 @@ public final class ConfigOptions {
                     "By default, the scale is 8, putting each island on points separated by 2048 blocks.\n" +
                     "You can't set the Value < 4 due to Nether portal collisions.")
                     .defineInRange("islandDistance", 8, 4, 512);
-            islandYLevel = server.comment("Y Level to spawn islands at (Set to 2 above where you want the ground block)").defineInRange("islandYLevel", 72, 1, 240);
-            bottomBlockType = server.comment("Type of block to spawn under islands (Not yet working!!!)").defineEnum("bottomBlockType", BottomBlockType.BEDROCK);
-            allowIslandCreation = server.comment("Allow players to create or reset their islands").define("allowIslandCreation", true);
-        //    enableGoGIsland = server.comment("Allow garden of glass island to be used").define("enableGoGIsland", false);
-            allowVisitCommand = server.comment("Allows the visit command to be used").define("allowVisitCommand", true);
-            allowHomeCommand = server.comment("Allows the home command to be used").define("allowHomeCommand", true);
-            allowIslandRegen = server.comment("Allows island generation").define("allowIslandRegen", true);
-        }
-    }
-
-    public static final Common COMMON;
-    public static final ForgeConfigSpec COMMON_SPEC;
-    static {
-        final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
-        COMMON_SPEC = specPair.getRight();
-        COMMON = specPair.getLeft();
-    }
-}
+            islandYLevel = server.comment("Y Level to spawn islands at (Set to 2 above where you want the ground block)").defineInRange("islandYLevel", 72, 1, 244);
+            bottomBlockType =
